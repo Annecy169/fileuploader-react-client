@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css';
 const axios = require("axios");
 
 class ReactUploadImage extends React.Component {
@@ -6,10 +7,11 @@ class ReactUploadImage extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      file: null
+      file: null,
+      preview: null
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
   onFormSubmit(e){
     e.preventDefault();
@@ -29,17 +31,25 @@ class ReactUploadImage extends React.Component {
         alert("Error Uploading" + error);
     });
   }
-  onChange(e) {
-    this.setState({file:e.target.files[0]});
+  handleChange(e) {
+    var targetFile = e.target.files[0];
+    this.setState({file:targetFile});
+    this.setState({
+      preview: URL.createObjectURL(targetFile)
+    })
   }
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <h1>File Upload</h1>
-        <input type="file" name="myImage" onChange= {this.onChange} />
-        <input type="submit" value="Submit" />
-      </form>
+      <div class="App">
+        <div class="bg-block"></div>
+        <h1 class="Title" >File Up<span class="white">loader</span></h1>
+        <form class="uploader" onSubmit={this.onFormSubmit}>
+          <input class="file" type="file" name="myImage" onChange= {this.handleChange} />
+          <input class="submit" type="submit" value="Submit" />
+          <img class="image-holder" src={this.state.preview} alt="preview"/>
+        </form>
+      </div>
     )
   }
 }

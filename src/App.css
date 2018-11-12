@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  display: flex;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -29,4 +36,59 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Title {
+  position: absolute;
+  margin-top: 50px;
+  left: 50%;
+  transform: translate(-47.5%,-50%);
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+}
+
+.submit {
+  margin: 0 100px 0 100px;
+}
+
+.file {
+  height: 20px;
+}
+
+.white {
+  color: white;
+}
+
+.uploader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  text-align: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 400px;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.image-holder {
+  height: 300px;
+}
+
+.bg-block {
+  background-color: rgb(131, 95, 252);
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  right: 0;
+  z-index: -1;
+  bottom: 0;
 }
