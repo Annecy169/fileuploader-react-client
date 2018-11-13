@@ -27,6 +27,7 @@ class ReactUploadImage extends React.Component {
     axios.post("http://localhost:8000/upload",formData,config)
       .then((response) => {
           alert("The file is successfully uploaded", response);
+          window.location.reload();
       }).catch((error) => {
         alert("Error Uploading" + error);
     });
@@ -45,10 +46,16 @@ class ReactUploadImage extends React.Component {
         <div class="bg-block"></div>
         <h1 class="Title" >File Up<span class="white">loader</span></h1>
         <form class="uploader" onSubmit={this.onFormSubmit}>
+        
+        <div class="file-upload-wrapper">
           <input class="file" type="file" name="myImage" onChange= {this.handleChange} />
-          <input class="submit" type="submit" value="Submit" />
+        </div>  
+
+        <div class="image-frame">  
           <img class="image-holder" src={this.state.preview} alt="preview"/>
-        </form>
+        </div>
+        <input class="submit" type="submit" value="Submit" />
+      </form>
       </div>
     )
   }
