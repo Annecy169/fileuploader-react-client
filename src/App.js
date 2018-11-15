@@ -8,13 +8,13 @@ class ReactUploadImage extends React.Component {
     super(props);
     this.state ={
       file: null,
-      preview: null,
-      name: "Select a file"
+      preview: "./no-image-available.png",
+      name: "Drag and drop or Select a file"
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this)
   }
-  onFormSubmit(e){
+  onFormSubmit = async e => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('myImage',this.state.file);
@@ -25,21 +25,20 @@ class ReactUploadImage extends React.Component {
         'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept"
       }
     };
-    axios.post("http://192.168.1.120:8000/upload",formData,config)
-      .then((response) => {
-          alert("The file is successfully uploaded", response);
-          window.location.reload();
-      }).catch((error) => {
-        alert("Error Uploading" + error);
-    });
+    try {
+      const res = await axios.post("http://localhost:8000/upload",formData,config)
+      alert("The file is successfully uploaded", res);
+      window.location.reload();
+    } catch(err) {
+      alert("Error Uploading" + err);
+    }
   }
   handleChange(e) {
-    var targetFile = e.target.files[0];
+    const filename = e.target.files[0].name;
+    const targetFile = e.target.files[0];
     this.setState({file:targetFile});
     var targetURL = URL.createObjectURL(e.target.files[0])
     this.setState({preview:targetURL});
-
-    var filename = e.target.files[0].name;
     this.setState({name:filename});
   }
 
@@ -57,7 +56,7 @@ class ReactUploadImage extends React.Component {
         <div class="image-frame">  
           <img class="image-holder" src={this.state.preview} alt="preview"/>
         </div>
-        <input class="submit" type="submit" value="Submit" />
+        <input class="submit" type="submit" value="Upload" />
       </form>
       </div>
     )
